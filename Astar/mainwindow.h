@@ -2,7 +2,10 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include "button.h"
+#include <QPushButton>
+#include <QLabel>
+#include "mybutton.h"
+#include "cube.h"
 
 namespace Ui {
 class MainWindow;
@@ -20,24 +23,30 @@ private:
     Ui::MainWindow *ui;
 
 public:
-    button *buttonArr[40][40];
+    myButton *buttonArr[40][40];
 
     QPushButton *StartPoint;
     QPushButton *BlockPoint;
     QPushButton *FinalPoint;
+    QPushButton *FindRoadBtn;
+    QLabel *TitleLabel;
 
-    int situation ; // 0: start point, 1: block point, 2: block point
+    int situation = - 1; // -1: not allowed, 0: start point, 1: block point, 2: block point
 
-    int startPointCount;
-    int BlockPointCount;
-    int FinalPointCount;
+    int StartPointCount = 1;
+    int BlockPointCount = 0;
+    int FinalPointCount = 1;
+
+    cube *cubeArr[40][40];
 
 private slots:
 
     void on_StartPoint_Clicked();
     void on_BlockPoint_Clicked();
     void on_FinalPoint_Clicked();
-    //void on_button_Clicked(button *p);
+    void on_FindRoadBtn_Clicked();
+    void on_button_Clicked(myButton *p);
+    //cube on_Cube_Clicked(cube *c);
 };
 
 #endif // MAINWINDOW_H
