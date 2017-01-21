@@ -4,8 +4,8 @@ cube::cube()
 {
 }
 
-void cube::getF(int f){
-    F = f;
+void cube::getF(){
+    F = G + H;
 }
 
 void cube::getG(int g){
@@ -34,4 +34,24 @@ void cube::setDownPoint(cube *p){
 
 void cube::setUpPoint(cube *p){
     up = p;
+}
+
+void cube::setLeft_UpPoint(cube *p){
+    left_up = p;
+}
+
+void cube::setRight_UpPoint(cube *p){
+    right_up = p;
+}
+
+void cube::setLeft_DownPoint(cube *p){
+    left_down = p;
+}
+
+void cube::setRight_DownPoint(cube *p){
+    right_down = p;
+}
+
+void cube::setParentPoint(cube *p){
+    parent = p;
 }

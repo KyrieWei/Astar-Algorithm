@@ -27,11 +27,13 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     mybutton.cpp \
     cube.cpp \
-    ai.cpp
+    ai.cpp \
+    linklist.cpp
 
 HEADERS  += mainwindow.h \
     mybutton.h \
     cube.h \
-    ai.h
+    ai.h \
+    linklist.h
 
 FORMS    += mainwindow.ui

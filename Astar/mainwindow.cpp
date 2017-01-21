@@ -88,73 +88,116 @@ void MainWindow::on_FindRoadBtn_Clicked(){
 
     int startpoint_x = -1;
     int startpoint_y = -1;
+    int finalpoint_x = -1;
+    int finalpoint_y = -1;
     for (int i = 0; i < 40; i ++){
         for (int j = 0; j < 40; j ++){
             cubeArr[i][j] = new cube();
+            cubeArr[i][j]->coord = {i,j};
             cubeArr[i][j]->getStatus(buttonArr[i][j]->status);
             if (cubeArr[i][j]->status == 0){
                 startpoint_x = i;
                 startpoint_y = j;
+            }
+            if (cubeArr[i][j]->status == 2){
+                finalpoint_x = i;
+                finalpoint_y = j;
             }
             if(i == 0 && j > 0 && j < 39){
                 cubeArr[i][j]->setUpPoint(NULL);
                 cubeArr[i][j]->setLeftPoint(cubeArr[i][j-1]);
                 cubeArr[i][j]->setDownPoint(cubeArr[i+1][j]);
                 cubeArr[i][j]->setRightPoint(cubeArr[i][j+1]);
+                cubeArr[i][j]->setLeft_UpPoint(NULL);
+                cubeArr[i][j]->setRight_UpPoint(NULL);
+                cubeArr[i][j]->setLeft_DownPoint(cubeArr[i+1][j-1]);
+                cubeArr[i][j]->setRight_DownPoint(cubeArr[i+1][j+1]);
             }
             else if(j == 0 && i > 0 && i < 39){
                 cubeArr[i][j]->setUpPoint(cubeArr[i-1][j]);
                 cubeArr[i][j]->setLeftPoint(NULL);
                 cubeArr[i][j]->setDownPoint(cubeArr[i+1][j]);
                 cubeArr[i][j]->setRightPoint(cubeArr[i][j+1]);
+                cubeArr[i][j]->setLeft_UpPoint(NULL);
+                cubeArr[i][j]->setRight_UpPoint(cubeArr[i-1][j+1]);
+                cubeArr[i][j]->setLeft_DownPoint(NULL);
+                cubeArr[i][j]->setRight_DownPoint(cubeArr[i+1][j+1]);
             }
             else if(i == 39 && j > 0 && j < 39){
                 cubeArr[i][j]->setUpPoint(cubeArr[i-1][j]);
                 cubeArr[i][j]->setLeftPoint(cubeArr[i][j-1]);
                 cubeArr[i][j]->setDownPoint(NULL);
                 cubeArr[i][j]->setRightPoint(cubeArr[i][j+1]);
+                cubeArr[i][j]->setLeft_UpPoint(cubeArr[i-1][j-1]);
+                cubeArr[i][j]->setRight_UpPoint(cubeArr[i-1][j+1]);
+                cubeArr[i][j]->setLeft_DownPoint(NULL);
+                cubeArr[i][j]->setRight_DownPoint(NULL);
             }
             else if(j == 39 && i > 0 && i < 39){
                 cubeArr[i][j]->setUpPoint(cubeArr[i-1][j]);
                 cubeArr[i][j]->setLeftPoint(cubeArr[i][j-1]);
                 cubeArr[i][j]->setDownPoint(cubeArr[i+1][j]);
                 cubeArr[i][j]->setRightPoint(NULL);
+                cubeArr[i][j]->setLeft_UpPoint(cubeArr[i-1][j-1]);
+                cubeArr[i][j]->setRight_UpPoint(NULL);
+                cubeArr[i][j]->setLeft_DownPoint(cubeArr[i+1][j-1]);
+                cubeArr[i][j]->setRight_DownPoint(NULL);
             }
             else if(i == 0 && j == 0){
                 cubeArr[i][j]->setUpPoint(NULL);
                 cubeArr[i][j]->setLeftPoint(NULL);
                 cubeArr[i][j]->setDownPoint(cubeArr[i+1][j]);
                 cubeArr[i][j]->setRightPoint(cubeArr[i][j+1]);
+                cubeArr[i][j]->setLeft_UpPoint(NULL);
+                cubeArr[i][j]->setRight_UpPoint(NULL);
+                cubeArr[i][j]->setLeft_DownPoint(NULL);
+                cubeArr[i][j]->setRight_DownPoint(cubeArr[i+1][j+1]);
             }
             else if(i == 0 && j == 39){
                 cubeArr[i][j]->setUpPoint(NULL);
                 cubeArr[i][j]->setLeftPoint(cubeArr[i][j-1]);
                 cubeArr[i][j]->setDownPoint(cubeArr[i+1][j]);
                 cubeArr[i][j]->setRightPoint(NULL);
+                cubeArr[i][j]->setLeft_UpPoint(NULL);
+                cubeArr[i][j]->setRight_UpPoint(NULL);
+                cubeArr[i][j]->setLeft_DownPoint(cubeArr[i+1][j-1]);
+                cubeArr[i][j]->setRight_DownPoint(NULL);
             }
             else if(i == 39 && j == 0){
                 cubeArr[i][j]->setUpPoint(cubeArr[i-1][j]);
                 cubeArr[i][j]->setLeftPoint(NULL);
                 cubeArr[i][j]->setDownPoint(NULL);
                 cubeArr[i][j]->setRightPoint(cubeArr[i][j+1]);
+                cubeArr[i][j]->setLeft_UpPoint(NULL);
+                cubeArr[i][j]->setRight_UpPoint(cubeArr[i-1][j+1]);
+                cubeArr[i][j]->setLeft_DownPoint(NULL);
+                cubeArr[i][j]->setRight_DownPoint(NULL);
             }
             else if(i == 39 && j == 39){
                 cubeArr[i][j]->setUpPoint(cubeArr[i-1][j]);
                 cubeArr[i][j]->setLeftPoint(cubeArr[i][j-1]);
                 cubeArr[i][j]->setDownPoint(NULL);
                 cubeArr[i][j]->setRightPoint(NULL);
+                cubeArr[i][j]->setLeft_UpPoint(cubeArr[i-1][j-1]);
+                cubeArr[i][j]->setRight_UpPoint(NULL);
+                cubeArr[i][j]->setLeft_DownPoint(NULL);
+                cubeArr[i][j]->setRight_DownPoint(NULL);
             }
             else{
                 cubeArr[i][j]->setUpPoint(cubeArr[i-1][j]);
                 cubeArr[i][j]->setLeftPoint(cubeArr[i][j-1]);
                 cubeArr[i][j]->setDownPoint(cubeArr[i+1][j]);
                 cubeArr[i][j]->setRightPoint(cubeArr[i][j+1]);
+                cubeArr[i][j]->setLeft_UpPoint(cubeArr[i-1][j-1]);
+                cubeArr[i][j]->setRight_UpPoint(cubeArr[i-1][j+1]);
+                cubeArr[i][j]->setLeft_DownPoint(cubeArr[i+1][j-1]);
+                cubeArr[i][j]->setRight_DownPoint(cubeArr[i+1][j+1]);
             }
         }
     }
 
     AI *ai = new AI();
-    ai->algorithm(cubeArr,startpoint_x, startpoint_y);
+    ai->algorithm(cubeArr,startpoint_x, startpoint_y, finalpoint_x, finalpoint_y);
 }
 
 void MainWindow::on_button_Clicked(myButton *p){
