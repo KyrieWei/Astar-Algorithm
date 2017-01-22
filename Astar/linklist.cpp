@@ -1,11 +1,11 @@
 #include "linklist.h"
+#include <iostream>
+using namespace std;
 
 LinkList::LinkList()
 {
-     node *head ;
      head->currentCube = NULL;
      head->pNext = NULL;
-
 }
 
 
@@ -34,6 +34,7 @@ int LinkList::traverseLinkList(cube *tempCube){
     node *p = head->pNext;
     while(p->pNext != NULL){
         if(p->currentCube->coord.x == tempCube->coord.x && p->currentCube->coord.y == tempCube->coord.y){
+            cout << "success of traverse!" << endl;
             return position;
         }
         else {
@@ -41,7 +42,7 @@ int LinkList::traverseLinkList(cube *tempCube){
             position ++;
         }
     }
-
+    cout << "success of traverse!" << endl;
     return 0;
 }
 

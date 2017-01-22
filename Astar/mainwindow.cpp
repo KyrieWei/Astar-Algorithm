@@ -90,6 +90,8 @@ void MainWindow::on_FindRoadBtn_Clicked(){
     int startpoint_y = -1;
     int finalpoint_x = -1;
     int finalpoint_y = -1;
+    cube *tempCube;
+    Coord cd;
     for (int i = 0; i < 40; i ++){
         for (int j = 0; j < 40; j ++){
             cubeArr[i][j] = new cube();
@@ -198,6 +200,17 @@ void MainWindow::on_FindRoadBtn_Clicked(){
 
     AI *ai = new AI();
     ai->algorithm(cubeArr,startpoint_x, startpoint_y, finalpoint_x, finalpoint_y);
+
+    //track back the final road
+    tempCube = cubeArr[finalpoint_x][finalpoint_y]->parent;
+    while(true){
+        cd = tempCube->coord;
+        buttonArr[cd.x][cd.y]->setStyleSheet("background-color: rgb(125,125,125)");
+        tempCube = tempCube->parent;
+        if(tempCube->status == 0){
+            break;
+        }
+    }
 }
 
 void MainWindow::on_button_Clicked(myButton *p){

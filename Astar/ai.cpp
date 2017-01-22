@@ -9,12 +9,13 @@ AI::AI()
 }
 
 void AI::algorithm(cube *cubeArr[40][40], int startpoint_x, int startpoint_y, int finalpoint_x, int finalpoint_y){
-    cout << "success!" << endl;
 
-    int G = 0, H = 0, F = 0;
+
+    int G = 0, H = 0, F = 0, position = 0;
     cubeArr[startpoint_x][startpoint_y]->getH(0);
     cubeArr[startpoint_x][startpoint_y]->getG(0);
     cubeArr[startpoint_x][startpoint_y]->getF();
+
 
     cube *tempCube = cubeArr[startpoint_x][startpoint_y];
     cube *parentCube;
@@ -22,17 +23,27 @@ void AI::algorithm(cube *cubeArr[40][40], int startpoint_x, int startpoint_y, in
     LinkList *OpenList = new LinkList();
     LinkList *ClosedList = new LinkList();
 
-    //add startpoint to ClosedList
-    ClosedList->insertNode(tempCube);
+    //add startpoint to OpenList
+    OpenList->insertNode(tempCube);
 
-    while(true){
+    while(!OpenList->isEmpty()){
 
+
+        //find the next cube which has the smallest F
+        node tempNode = OpenList->findNextCube();
+        tempCube = tempNode.currentCube;
+        parentCube = tempCube;
+
+        //add parentCube to ClosedList
+        ClosedList->insertNode(parentCube);
+        position = OpenList->traverseLinkList(tempCube);
+        cout << "position: " << position << endl;
+        OpenList->deleteNode(position);
 
         //set G, H, F of the node around startpoint
 
         //check the up
-        parentCube = tempCube;
-        tempCube = tempCube->up;
+        tempCube = parentCube->up;
         if(tempCube->status == 2){
             break;
         }
@@ -63,7 +74,7 @@ void AI::algorithm(cube *cubeArr[40][40], int startpoint_x, int startpoint_y, in
            }
         }
 
-        tempCube = tempCube->left;
+        tempCube = parentCube->left;
         if(tempCube->status == 2){
             break;
         }
@@ -93,7 +104,7 @@ void AI::algorithm(cube *cubeArr[40][40], int startpoint_x, int startpoint_y, in
             }
         }
 
-        tempCube = tempCube->right;
+        tempCube = parentCube->right;
         if(tempCube->status == 2){
             break;
         }
@@ -123,7 +134,7 @@ void AI::algorithm(cube *cubeArr[40][40], int startpoint_x, int startpoint_y, in
             }
         }
 
-        tempCube = tempCube->down;
+        tempCube = parentCube->down;
         if(tempCube->status == 2){
             break;
         }
@@ -153,7 +164,7 @@ void AI::algorithm(cube *cubeArr[40][40], int startpoint_x, int startpoint_y, in
             }
         }
 
-        tempCube = tempCube->left_up;
+        tempCube = parentCube->left_up;
         if(tempCube->status == 2){
             break;
         }
@@ -183,7 +194,7 @@ void AI::algorithm(cube *cubeArr[40][40], int startpoint_x, int startpoint_y, in
             }
         }
 
-        tempCube = tempCube->left_down;
+        tempCube = parentCube->left_down;
         if(tempCube->status == 2){
             break;
         }
@@ -213,7 +224,7 @@ void AI::algorithm(cube *cubeArr[40][40], int startpoint_x, int startpoint_y, in
             }
         }
 
-        tempCube = tempCube->right_up;
+        tempCube = parentCube->right_up;
         if(tempCube->status == 2){
             break;
         }
@@ -243,7 +254,7 @@ void AI::algorithm(cube *cubeArr[40][40], int startpoint_x, int startpoint_y, in
             }
         }
 
-        tempCube = tempCube->right_down;
+        tempCube = parentCube->right_down;
         if(tempCube->status == 2){
             break;
         }
@@ -272,13 +283,6 @@ void AI::algorithm(cube *cubeArr[40][40], int startpoint_x, int startpoint_y, in
                 }
             }
         }
-
-        //find the next cube which has the smallest F
-        node tempNode = OpenList->findNextCube();;
-
-        //add parentCube to ClosedList
-        ClosedList->insertNode(parentCube);
-        tempCube = tempNode.currentCube;
     }
 
 }
