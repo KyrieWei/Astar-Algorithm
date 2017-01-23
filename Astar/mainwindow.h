@@ -29,6 +29,7 @@ public:
     QPushButton *BlockPoint;
     QPushButton *FinalPoint;
     QPushButton *FindRoadBtn;
+    QPushButton *NewGameBtn;
     QLabel *TitleLabel;
 
     int situation = - 1; // -1: not allowed, 0: start point, 1: block point, 2: block point
@@ -45,6 +46,7 @@ private slots:
     void on_BlockPoint_Clicked();
     void on_FinalPoint_Clicked();
     void on_FindRoadBtn_Clicked();
+    void on_NewGameBtn_Clicked();
     void on_button_Clicked(myButton *p);
     //cube on_Cube_Clicked(cube *c);
 };

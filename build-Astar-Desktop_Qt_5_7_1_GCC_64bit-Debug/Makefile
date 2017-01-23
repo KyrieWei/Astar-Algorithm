@@ -53,14 +53,14 @@ SOURCES       = ../Astar/main.cpp \
 		../Astar/mybutton.cpp \
 		../Astar/cube.cpp \
 		../Astar/ai.cpp \
-		../Astar/linklist.cpp moc_mainwindow.cpp \
+		../Astar/list.cpp moc_mainwindow.cpp \
 		moc_mybutton.cpp
 OBJECTS       = main.o \
 		mainwindow.o \
 		mybutton.o \
 		cube.o \
 		ai.o \
-		linklist.o \
+		list.o \
 		moc_mainwindow.o \
 		moc_mybutton.o
 DIST          = ../../Qt5.7.1/5.7/gcc_64/mkspecs/features/spec_pre.prf \
@@ -217,12 +217,12 @@ DIST          = ../../Qt5.7.1/5.7/gcc_64/mkspecs/features/spec_pre.prf \
 		../Astar/mybutton.h \
 		../Astar/cube.h \
 		../Astar/ai.h \
-		../Astar/linklist.h ../Astar/main.cpp \
+		../Astar/list.h ../Astar/main.cpp \
 		../Astar/mainwindow.cpp \
 		../Astar/mybutton.cpp \
 		../Astar/cube.cpp \
 		../Astar/ai.cpp \
-		../Astar/linklist.cpp
+		../Astar/list.cpp
 QMAKE_TARGET  = Astar
 DESTDIR       = 
 TARGET        = Astar
@@ -557,8 +557,8 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents ../Astar/mainwindow.h ../Astar/mybutton.h ../Astar/cube.h ../Astar/ai.h ../Astar/linklist.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../Astar/main.cpp ../Astar/mainwindow.cpp ../Astar/mybutton.cpp ../Astar/cube.cpp ../Astar/ai.cpp ../Astar/linklist.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../Astar/mainwindow.h ../Astar/mybutton.h ../Astar/cube.h ../Astar/ai.h ../Astar/list.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../Astar/main.cpp ../Astar/mainwindow.cpp ../Astar/mybutton.cpp ../Astar/cube.cpp ../Astar/ai.cpp ../Astar/list.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../Astar/mainwindow.ui $(DISTDIR)/
 
 
@@ -938,7 +938,8 @@ main.o: ../Astar/main.cpp ../Astar/mainwindow.h \
 		../../Qt5.7.1/5.7/gcc_64/include/QtCore/qeventloop.h \
 		../../Qt5.7.1/5.7/gcc_64/include/QtWidgets/qdesktopwidget.h \
 		../../Qt5.7.1/5.7/gcc_64/include/QtGui/qguiapplication.h \
-		../../Qt5.7.1/5.7/gcc_64/include/QtGui/qinputmethod.h
+		../../Qt5.7.1/5.7/gcc_64/include/QtGui/qinputmethod.h \
+		../Astar/list.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../Astar/main.cpp
 
 mainwindow.o: ../Astar/mainwindow.cpp ../Astar/mainwindow.h \
@@ -1408,10 +1409,10 @@ ai.o: ../Astar/ai.cpp ../Astar/ai.h \
 		../../Qt5.7.1/5.7/gcc_64/include/QtCore/qfiledevice.h \
 		../../Qt5.7.1/5.7/gcc_64/include/QtGui/qvector2d.h \
 		../../Qt5.7.1/5.7/gcc_64/include/QtGui/qtouchdevice.h \
-		../Astar/linklist.h
+		../Astar/list.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ai.o ../Astar/ai.cpp
 
-linklist.o: ../Astar/linklist.cpp ../Astar/linklist.h \
+list.o: ../Astar/list.cpp ../Astar/list.h \
 		../Astar/cube.h \
 		../Astar/mybutton.h \
 		../../Qt5.7.1/5.7/gcc_64/include/QtWidgets/QPushButton \
@@ -1514,7 +1515,7 @@ linklist.o: ../Astar/linklist.cpp ../Astar/linklist.h \
 		../../Qt5.7.1/5.7/gcc_64/include/QtCore/qfiledevice.h \
 		../../Qt5.7.1/5.7/gcc_64/include/QtGui/qvector2d.h \
 		../../Qt5.7.1/5.7/gcc_64/include/QtGui/qtouchdevice.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o linklist.o ../Astar/linklist.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o list.o ../Astar/list.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp

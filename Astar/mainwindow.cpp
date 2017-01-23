@@ -20,22 +20,27 @@ MainWindow::MainWindow(QWidget *parent) :
     StartPoint = new QPushButton("Start Point", this);
     StartPoint->move(50, 630);
     connect(StartPoint, SIGNAL(clicked()), this, SLOT(on_StartPoint_Clicked()));
-    StartPoint->setStyleSheet("background-color: rgb(88,155,180)");
+    StartPoint->setStyleSheet("background-color: rgb(200,200,200)");
 
     BlockPoint = new QPushButton("Block Point", this);
     BlockPoint->move(250, 630);
     connect(BlockPoint, SIGNAL(clicked()), this, SLOT(on_BlockPoint_Clicked()));
-    BlockPoint->setStyleSheet("background-color: rgb(200,200,230)");
+    BlockPoint->setStyleSheet("background-color: rgb(200,200,200)");
 
     FinalPoint = new QPushButton("Final Point", this);
     FinalPoint->move(450, 630);
     connect(FinalPoint, SIGNAL(clicked()), this, SLOT(on_FinalPoint_Clicked()));
-    FinalPoint->setStyleSheet("background-color: rgb(150,40,20)");
+    FinalPoint->setStyleSheet("background-color: rgb(200,200,200)");
 
     FindRoadBtn = new QPushButton("Find Road", this);
-    FindRoadBtn->move(450, 50);
+    FindRoadBtn->move(450, 30);
     connect(FindRoadBtn, SIGNAL(clicked()), this, SLOT(on_FindRoadBtn_Clicked()));
-    FindRoadBtn->setStyleSheet("background-color: rgb(251,188,5)");
+    FindRoadBtn->setStyleSheet("background-color: rgb(51,136,255)");
+
+    NewGameBtn = new QPushButton("New Game", this);
+    NewGameBtn->move(450, 70);
+    connect(NewGameBtn, SIGNAL(clicked()), this, SLOT(on_NewGameBtn_Clicked()));
+    NewGameBtn->setStyleSheet("background-color: rgb(237,197,63)");
 
     TitleLabel = new QLabel("Astar-Algorithm", this);
     TitleLabel->move(30,30);
@@ -69,42 +74,16 @@ MainWindow::MainWindow(QWidget *parent) :
             connect(buttonArr[i][j],SIGNAL(myClick(myButton*)),this,SLOT(on_button_Clicked(myButton*)));
         }
     }
-}
 
-void MainWindow::on_StartPoint_Clicked(){
-    situation = 0;
-    cout << "situation: " << situation << endl;
-}
-
-void MainWindow::on_BlockPoint_Clicked(){
-    situation = 1;
-}
-
-void MainWindow::on_FinalPoint_Clicked(){
-    situation = 2;
-}
-
-void MainWindow::on_FindRoadBtn_Clicked(){
-
-    int startpoint_x = -1;
-    int startpoint_y = -1;
-    int finalpoint_x = -1;
-    int finalpoint_y = -1;
-    cube *tempCube;
-    Coord cd;
     for (int i = 0; i < 40; i ++){
         for (int j = 0; j < 40; j ++){
             cubeArr[i][j] = new cube();
+        }
+    }
+    for (int i = 0; i < 40; i ++){
+        for (int j = 0; j < 40; j ++){
             cubeArr[i][j]->coord = {i,j};
-            cubeArr[i][j]->getStatus(buttonArr[i][j]->status);
-            if (cubeArr[i][j]->status == 0){
-                startpoint_x = i;
-                startpoint_y = j;
-            }
-            if (cubeArr[i][j]->status == 2){
-                finalpoint_x = i;
-                finalpoint_y = j;
-            }
+
             if(i == 0 && j > 0 && j < 39){
                 cubeArr[i][j]->setUpPoint(NULL);
                 cubeArr[i][j]->setLeftPoint(cubeArr[i][j-1]);
@@ -197,15 +176,55 @@ void MainWindow::on_FindRoadBtn_Clicked(){
             }
         }
     }
+}
+
+void MainWindow::on_StartPoint_Clicked(){
+    situation = 0;
+    cout << "situation: " << situation << endl;
+}
+
+void MainWindow::on_BlockPoint_Clicked(){
+    situation = 1;
+}
+
+void MainWindow::on_FinalPoint_Clicked(){
+    situation = 2;
+}
+
+void MainWindow::on_FindRoadBtn_Clicked(){
+
+    int startpoint_x = -1;
+    int startpoint_y = -1;
+    int finalpoint_x = -1;
+    int finalpoint_y = -1;
+    cube *tempCube;
+    Coord cd;
+    for (int i = 0; i < 40; i ++){
+        for (int j = 0; j < 40; j ++){
+            cubeArr[i][j]->getStatus(buttonArr[i][j]->status);
+            if (cubeArr[i][j]->status == 0){
+                startpoint_x = i;
+                startpoint_y = j;
+            }
+            if (cubeArr[i][j]->status == 2){
+                finalpoint_x = i;
+                finalpoint_y = j;
+            }
+        }
+    }
+
 
     AI *ai = new AI();
-    ai->algorithm(cubeArr,startpoint_x, startpoint_y, finalpoint_x, finalpoint_y);
+    ai->newalgorithm(cubeArr,startpoint_x, startpoint_y, finalpoint_x, finalpoint_y);
 
     //track back the final road
     tempCube = cubeArr[finalpoint_x][finalpoint_y]->parent;
+    cout << tempCube->coord.x << " " << tempCube->coord.y << endl;
     while(true){
-        cd = tempCube->coord;
-        buttonArr[cd.x][cd.y]->setStyleSheet("background-color: rgb(125,125,125)");
+        cd.x = tempCube->coord.x;
+        cd.y = tempCube->coord.y;
+        cout << "cd: " << cd.x << " " << cd.y << endl;
+        buttonArr[cd.x][cd.y]->setStyleSheet("background-color: rgb(50,150,20)");
         tempCube = tempCube->parent;
         if(tempCube->status == 0){
             break;
@@ -214,8 +233,7 @@ void MainWindow::on_FindRoadBtn_Clicked(){
 }
 
 void MainWindow::on_button_Clicked(myButton *p){
-
-   p->setStatus(situation);
+    p->setStatus(situation);
     if (situation == 0 && StartPointCount == 1){//choose the start point
         p->setStyleSheet("background-color: rgb(88,155,180)");
         StartPointCount ++;//only be clicked once
@@ -227,9 +245,28 @@ void MainWindow::on_button_Clicked(myButton *p){
     }
 
     else if(situation == 2 && FinalPointCount == 1){//choose the final point
-        p->setStyleSheet("background-color: rgb(150,40,20)");
+        p->setStyleSheet("background-color: rgb(30,30,30)");
         FinalPointCount ++;
     }
+}
+
+void MainWindow::on_NewGameBtn_Clicked(){
+    for (int i = 0; i < 40; i ++){
+        for (int j = 0; j < 40; j ++){
+            cubeArr[i][j]->getG(0);
+            cubeArr[i][j]->getH(0);
+            cubeArr[i][j]->getF();
+            cubeArr[i][j]->parent = NULL;
+            cubeArr[i][j]->getStatus(-1);
+            buttonArr[i][j]->setStatus(-1);
+            buttonArr[i][j]->setStyleSheet("background-color: rgb(255,125,60)");
+        }
+    }
+
+    situation = -1;
+    StartPointCount = 1;
+    BlockPointCount = 0;
+    FinalPointCount = 1;
 }
 
 MainWindow::~MainWindow()
