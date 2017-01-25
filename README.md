@@ -18,7 +18,7 @@ It is easy for users to understand the features of this application. In the midd
 
 The final result after running the  application is like this:
 
-![astarresult](https:github.com/kyriewei/Astar-Algorithm/raw/master/image/astarresult.png)
+![astarresult](https://github.com/kyriewei/Astar-Algorithm/raw/master/image/astarresult.png)
 
 
 
