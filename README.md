@@ -12,7 +12,7 @@ A* is a computer algorithm that is widely used in pathfinding and graph traversa
 
 The main interface of the application is as followed:
 
-![Astar](/home/kyriewei/图片/Astar.png)
+![Astar](https://github.com/kyriewei/Astar-Algorithm/raw/master/image/Astar.png)
 
 It is easy for users to understand the features of this application. In the middle of the mainwindow is a 40×40 button array. I divide the map into 1600 cubes. It is just like pixel but enlarged. We could set the start point after clicking the starPoint button, block points after clicking the BlockPoint button and final point after clicking the finalPoint button. Then, we will get the best road after the findRoad button being clicked. Of course we could start the new game aferter the newGame button being clicked.
 
@@ -60,7 +60,7 @@ Here is the steps of A* algorithm:
 
 3. save the path. Start at the final point, and work backwards moving from one cube to its parent. This wil eventually take us back to the start point, and that's our path.
 
-> A* algorithm details		
+   > A* algorithm details	
 
 The key to determine which cube to use when figuring out the path is the following equation:
 
